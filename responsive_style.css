@@ -1,0 +1,246 @@
+
+@font-face {
+  font-family: '8bit Wonder';
+  src: url('fonts/8bit-wonder.woff2') format('woff2');
+}
+
+/* RESET E FONT PIXEL */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: 'Press Start 2P', monospace;
+  background-color: #000;
+  overflow: hidden;
+}
+
+/* CONTENITORE GIOCO */
+#game-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+/* SFONDO SOLO PER SCENA 0 */
+#scene-0 {
+  display: flex;
+  background: url('assets/start_bg.png') no-repeat center center;
+  background-size: contain;
+  background-color: black;
+}
+
+/* CONTENUTO DELLA SCENA */
+.scene {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0; left: 0;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  box-sizing: border-box;
+  text-align: center;
+  background: transparent;
+  z-index: 5;
+}
+
+.overlay-text {
+  color: white;
+  z-index: 3;
+}
+
+/* TESTI PIXELATI */
+.pixel-text {
+  font-family: '8bit Wonder', monospace;
+  image-rendering: pixelated;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeSpeed;
+}
+
+/* TITOLO PRINCIPALE */
+.main-title {
+  font-size: clamp(24px, 6vw, 64px);
+  color: rgba(255, 105, 180, 0.9);
+  text-shadow: 2px 2px 0 #000, 0 0 10px #f0f;
+  animation: glow 2s ease-in-out infinite alternate;
+  line-height: 1.2;
+  margin: 0;
+}
+
+/* SOTTOTITOLO */
+.subtitle {
+  font-size: clamp(14px, 3vw, 24px);
+  color: #90ff90;
+  text-shadow: 1px 1px #000;
+  margin: 10px 0;
+}
+
+/* INTRO */
+.intro {
+  font-size: clamp(10px, 2vw, 16px);
+  color: #00ffff;
+  margin-top: 20px;
+}
+
+/* BOTTONE START */
+.start-btn {
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+  font-size: clamp(10px, 2.5vw, 16px);
+  padding: 12px 24px;
+  color: white;
+  background-color: #6dfc9b;
+  border: 4px solid #2dff88;
+  outline: 2px solid black;
+  box-shadow: 0 0 0 4px #1e914d, 4px 4px 0 #000;
+  cursor: pointer;
+  text-transform: uppercase;
+  image-rendering: pixelated;
+  position: relative;
+  z-index: 3;
+  transition: none;
+}
+
+.start-btn:hover {
+  transform: translate(1px, 1px);
+  box-shadow: 0 0 0 4px #1e914d, 2px 2px 0 #000;
+}
+
+/* BOTTONE MENU */
+.menu-btn {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: #4532ff;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  font-size: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: '8bit Wonder', monospace;
+  image-rendering: pixelated;
+  z-index: 10;
+}
+
+/* ANIMAZIONE GLOW */
+@keyframes glow {
+  from { text-shadow: 2px 2px #000, 0 0 5px #f0f; }
+  to   { text-shadow: 2px 2px #000, 0 0 20px #0ff; }
+}
+
+/* SCENA 1: contenitore orizzontale */
+.scene-1-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+  width: 90%;
+  height: 80%;
+  gap: 2rem;
+  padding: 2rem;
+  box-sizing: border-box;
+  border: 2px solid #00ff88;
+  border-radius: 16px;
+  box-shadow: 0 0 10px #00ff88;
+}
+
+/* Colonna sinistra */
+.scene-1-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: left;
+  gap: 1rem;
+}
+
+/* Testo descrittivo */
+.scene-1-text {
+  flex: 1;
+  min-width: 200px;
+  text-align: left;
+  color: #00ffcc;
+  font-family: '8bit Wonder', monospace;
+  padding: 10px;
+  font-size: clamp(12px, 1.5vw, 20px);
+  margin: 1rem 0;
+  image-rendering: pixelated;
+  width: 80%;
+}
+
+/* Parte destra (TV) */
+.scene-1-right {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.tv-inline {
+  width: clamp(280px, 40vw, 600px);
+  height: auto;
+  image-rendering: pixelated;
+  display: block;
+  margin: 0 auto;
+}
+
+/* TITOLO GRANDE SCENA 1 */
+.big-title {
+  font-size: clamp(20px, 5vw, 48px);
+  color: #ff7bf8;
+  text-shadow: 2px 2px 0 #000, 0 0 6px #f0f;
+  margin-bottom: 1.5rem;
+}
+
+/* SCENA 2: input stile pixel */
+.pixel-input {
+  font-family: '8bit Wonder', monospace;
+  padding: 10px;
+  font-size: 14px;
+  border: 3px solid #00ff88;
+  background-color: black;
+  color: #00ffcc;
+  text-align: center;
+  margin: 1rem 0;
+  image-rendering: pixelated;
+  box-shadow: 0 0 4px #00ff88;
+  width: 80%;
+  max-width: 300px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .scene-1-box {
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+  }
+
+  .scene-1-left, .scene-1-right {
+    width: 100%;
+    align-items: center;
+    text-align: center;
+  }
+
+  .scene-1-text {
+    text-align: center;
+    width: 100%;
+  }
+
+  .tv-inline {
+    max-width: 80vw;
+  }
+
+  .big-title {
+    font-size: clamp(18px, 6vw, 36px);
+  }
+}

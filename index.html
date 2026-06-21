@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Hydrogen Planet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============================
+     HUD (visible in game scenes)
+     ============================ -->
+<div id="hud">
+  <button class="menu-btn pixel-text" onclick="goToScene('scene-0')">MENU</button>
+  <div id="hud-center">
+    <span id="hud-name" class="pixel-text hud-name-text">PLAYER</span>
+    <span class="pixel-text hud-stat">💎 <span id="hud-gems">00</span></span>
+  </div>
+  <div id="hud-hearts"></div>
+</div>
+
+<!-- Feedback overlay -->
+<div id="feedback-overlay" class="feedback-overlay" style="display:none">
+  <div class="feedback-box">
+    <p id="feedback-msg" class="pixel-text"></p>
+  </div>
+</div>
+
+<div id="game-container">
+
+  <!-- ============================
+       SCENE 0: START
+       ============================ -->
+  <div class="scene" id="scene-0">
+    <div class="overlay-text">
+      <h1 class="main-title pixel-text">HYDROGEN<br>PLANET</h1>
+      <h2 class="subtitle pixel-text">LEVEL UP THE FUTURE</h2>
+      <button class="start-btn pixel-text" onclick="startGame()">▶ START</button>
+    </div>
+  </div>
+
+  <!-- ============================
+       SCENE 1: WELCOME
+       ============================ -->
+  <div class="scene" id="scene-1" style="display:none">
+    <div class="intro-box scene-1-box">
+      <div class="scene-1-left">
+        <h1 class="pixel-text big-title">BENVENUTA/O A<br>HYDROGEN PLANET</h1>
+        <div class="story-box">
+          <p class="scene-1-text pixel-text">
+            ♦ SEI UNA RICERCATRICE O UN RICERCATORE IN UN LABORATORIO SCIENTIFICO.<br><br>
+            IL TUO OBIETTIVO È QUELLO DI STUDIARE L'IDROGENO COME VETTORE ENERGETICO.<br><br>
+            BUON LAVORO!
+          </p>
+        </div>
+        <button class="start-btn pixel-text" onclick="goToScene('scene-2')">▶ CONTINUA</button>
+      </div>
+      <div class="scene-1-right">
+        <img class="tv-inline" src="assets/tv_screen.png" alt="tv screen">
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================
+       SCENE 2: ENTER NAME
+       ============================ -->
+  <div class="scene" id="scene-2" style="display:none">
+    <div class="intro-box name-box">
+      <h1 class="pixel-text big-title">QUAL È IL<br>TUO NOME?</h1>
+      <input type="text" id="player-name" class="name-input pixel-text" placeholder="INSERISCI IL NOME">
+      <button class="start-btn pixel-text" onclick="saveName()">▶ CONTINUA</button>
+    </div>
+  </div>
+
+  <!-- ============================
+       SCENE 3: INDEX
+       ============================ -->
+  <div class="scene" id="scene-3" style="display:none">
+    <div class="index-box">
+      <h1 class="pixel-text index-title">INDICE</h1>
+      <p class="pixel-text index-subtitle">♦ ARGOMENTI TRATTATI</p>
+    </div>
+
+    <div class="topics-grid">
+      <div class="topic">
+        <img src="assets/hydrogen.gif" alt="Idrogeno" class="topic-icon">
+        <div class="blocks"></div>
+        <p class="pixel-text topic-label">IDROGENO</p>
+      </div>
+      <div class="topic">
+        <img src="assets/microbiology.gif" alt="Microbiologia" class="topic-icon">
+        <div class="blocks"></div>
+        <p class="pixel-text topic-label">MICROBIOLOGIA</p>
+      </div>
+      <div class="topic">
+        <img src="assets/geology.gif" alt="Geologia" class="topic-icon">
+        <div class="blocks"></div>
+        <p class="pixel-text topic-label">GEOLOGIA</p>
+      </div>
+      <div class="topic">
+        <img src="assets/energy.gif" alt="Energia" class="topic-icon">
+        <div class="blocks"></div>
+        <p class="pixel-text topic-label">ENERGIA</p>
+      </div>
+    </div>
+
+    <button class="start-btn pixel-text" onclick="goToScene('scene-l1-intro')">▶ INIZIA</button>
+  </div>
+
+  <!-- ============================
+       LEVEL 1 INTRO
+       ============================ -->
+  <div class="scene" id="scene-l1-intro" style="display:none">
+    <div class="level-intro-card">
+      <h1 class="pixel-text level-title" style="color:#ff7bf8">LIVELLO 1</h1>
+      <div class="story-box">
+        <p class="pixel-text level-story">
+          MANCANO 5 GIORNI AL CAMPIONAMENTO E NON HAI ANCORA PREPARATO LA BORSA.<br><br>
+          SCEGLI COSA PORTI CON TE PRIMA DI ESSERE <span class="text-pink">LICENZIATA/O</span>
+          O CHE <span class="text-yellow">LA TERRA FINISCA</span>!
+        </p>
+      </div>
+      <button class="start-btn pixel-text" onclick="startLevel1()">▶ PREPARA LA BORSA</button>
+    </div>
+  </div>
+
+  <!-- ============================
+       LEVEL 1: ITEM SELECTION (dynamic)
+       ============================ -->
+  <div class="scene" id="scene-l1" style="display:none">
+    <!-- rendered by renderL1Round() -->
+  </div>
+
+  <!-- ============================
+       LEVEL 1 END / BRIDGE TO L2
+       ============================ -->
+  <div class="scene" id="scene-l1-end" style="display:none">
+    <div class="bridge-card">
+      <h1 class="pixel-text level-title" style="color:#ff7bf8">IL TUO CAMPIONAMENTO<br>È FINITO.</h1>
+      <p class="pixel-text bridge-text">
+        ORA PUOI FINALMENTE RIPOSARE PRIMA DI INIZIARE LE <strong>ANALISI DI LABORATORIO</strong>.<br><br>
+        <span style="color:#6dfc9b">LA TUA PROF/IL TUO PROF NON TI HA ANCORA LICENZIATO E LA TERRA È ANCORA SALVA,
+        MA NON CANTARE VITTORIA TROPPO VELOCEMENTE!</span>
+      </p>
+      <button class="start-btn pixel-text" onclick="startLevel2()">▶ LIVELLO 2</button>
+    </div>
+  </div>
+
+  <!-- ============================
+       LEVEL 2: LOCATION SELECTION (dynamic)
+       ============================ -->
+  <div class="scene" id="scene-l2" style="display:none">
+    <!-- rendered by renderL2() -->
+  </div>
+
+  <!-- ============================
+       LEVEL 2 END / BRIDGE TO L3
+       ============================ -->
+  <div class="scene" id="scene-l2-end" style="display:none">
+    <div class="bridge-card">
+      <h1 class="pixel-text level-title" style="color:#ff7bf8">LIVELLO 3</h1>
+      <div class="story-box">
+        <p class="pixel-text bridge-text">
+          I TUOI CAMPIONI SONO STATI PORTATI IN SALVO IN LABORATORIO.<br><br>
+          <span style="color:#6dfc9b">ORA INIZIANO LE ANALISI!</span>
+        </p>
+      </div>
+      <button class="start-btn pixel-text" onclick="startLevel3()">▶ INIZIA ANALISI</button>
+    </div>
+  </div>
+
+  <!-- ============================
+       LEVEL 3: SORTING (dynamic)
+       ============================ -->
+  <div class="scene" id="scene-l3" style="display:none">
+    <!-- rendered by renderL3() -->
+  </div>
+
+  <!-- ============================
+       WIN SCREEN
+       ============================ -->
+  <div class="scene" id="scene-win" style="display:none">
+    <div class="win-card">
+      <h1 class="pixel-text level-title" style="color:#ff7bf8">HAI COMPLETATO<br>TUTTI I LIVELLI!</h1>
+      <div class="story-box">
+        <p class="pixel-text win-text">
+          LO STUDIO DELL'IDROGENO COME VETTORE ENERGETICO È IMPORTANTE PER CREARE UN
+          SISTEMA ENERGETICO PIÙ SOSTENIBILE, RIDURRE L'INQUINAMENTO E AFFRONTARE
+          IL CAMBIAMENTO CLIMATICO.
+        </p>
+      </div>
+      <button class="start-btn pixel-text" onclick="goToScene('scene-final')">▶ CONTINUA</button>
+    </div>
+  </div>
+
+  <!-- ============================
+       FINAL SCREEN
+       ============================ -->
+  <div class="scene" id="scene-final" style="display:none">
+    <div class="final-layout">
+      <div class="final-text">
+        <h1 class="pixel-text final-title">MA…NESSUNO<br>SALVA IL PIANETA<br>DA SOLO!</h1>
+        <p class="pixel-text final-body">
+          LO STUDIO DELL'IDROGENO VERDE NON È UNA MISSIONE DA EROE SOLITARIO…
+          MA DA <span class="text-pink">TEAM SCIENTIFICO MULTICLASSE</span>!<br><br>
+          <span style="color:#6dfc9b">COME IN UN VIDEOGIOCO DI SQUADRA, OGNI PERSONAGGIO HA
+          ABILITÀ DIVERSE: PER PRODURRE ENERGIA PULITA SERVE UN'INTERA CREW!</span>
+        </p>
+      </div>
+      <div class="final-btns">
+        <button class="start-btn pixel-text" onclick="restartGame()">▶ RICOMINCIA</button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- #game-container -->
+
+<script src="game.js"></script>
+<script>
+  function restartGame() {
+    state.lives = 5;
+    state.gems = 0;
+    goToScene('scene-0');
+  }
+</script>
+</body>
+</html>
